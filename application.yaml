@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application # ArgoCD独自のリソースタイプ
+metadata:
+  name: nginx-app
+  namespace: workshop-argocd
+spec:
+  project: default
+  
+  # Gitリポジトリの設定
+  source:
+    repoURL: https://github.com/riochin/workshop-argocd.git
+    targetRevision: main
+    path: manifest/  # nginx-deployment.yamlがあるディレクトリ
+  
+  # デプロイ先の設定
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  
+  # 自動同期の設定
+  syncPolicy:
+    automated:
+      prune: true      # Gitから削除されたリソースも削除
+      selfHeal: true   # クラスタの変更を自動で元に戻す
+      allowEmpty: false
+    syncOptions:
+    - CreateNamespace=true
