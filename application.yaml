@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/riochin/workshop-argocd.git
     targetRevision: main
-    path: manifest/  # nginx-deployment.yamlがあるディレクトリ
+    path: manifests/  # nginx-deployment.yamlがあるディレクトリ
   
   # デプロイ先の設定
   destination:
